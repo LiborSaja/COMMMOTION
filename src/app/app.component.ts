@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2 } from "@angular/core";
+import { Component } from "@angular/core";
 import { MapComponent } from "./map/map.component";
 import { LogViewerComponent } from "./log-viewer/log-viewer.component";
 import { AboutComponent } from "./about/about.component";
