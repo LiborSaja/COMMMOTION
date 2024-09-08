@@ -1,0 +1,44 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    background-image: url("/mmm5.jpg"); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+}
+
+header,
+footer {
+    color: white;
+    text-align: center;
+}
+
+nav {
+    margin: 0 auto;
+}
+
+nav button {
+    margin: 0 10px;
+    padding: 5px 15px;
+    font-size: 16px;
+    background-color: #d822e6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+nav button:hover {
+    background-color: #9922e6;
+}
+
+main {
+    flex-grow: 1;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
