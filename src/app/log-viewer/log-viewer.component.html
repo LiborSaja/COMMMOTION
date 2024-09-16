@@ -1,1 +1,41 @@
-<p>log-viewer works!</p>
+<div class="container py-4 container-logview">
+    <div class="row mb-3">
+        <div class="col">
+            <label for="gpxFile" class="form-label">Vyberte soubor .GPX</label>
+            <input
+                type="file"
+                id="gpxFile"
+                accept=".gpx"
+                (change)="onFileSelected($event, 'gpx')"
+                class="form-control" />
+        </div>
+        <div class="col">
+            <label for="csvFile" class="form-label">Vyberte soubor .CSV</label>
+            <input
+                type="file"
+                id="csvFile"
+                accept=".csv"
+                (change)="onFileSelected($event, 'csv')"
+                class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            @if (errorMessage) {
+            <p class="alert alert-danger">{{ errorMessage }}</p>
+            }
+            <button class="btn btn-primary" (click)="importFiles()">
+                Importovat a zobrazit na mapě
+            </button>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col">
+            <h5>Informace k importování souborů</h5>
+            <p>
+                Zvolte soubory ve formátech .GPX a .CSV. Po stisknutí tlačítka
+                budou data importována a zpracována.
+            </p>
+        </div>
+    </div>
+</div>

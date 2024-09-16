@@ -1,25 +1,37 @@
-<div class="app-container" [ngStyle]="{ 'background-image': getBackground() }">
-    <header>
-        <h1>COMMMOTION</h1>
-        <nav>
-            <button (click)="switchComponent('about')">O aplikaci</button>
-            <button (click)="switchComponent('map')">Mapa</button>
-            <button (click)="switchComponent('logViewer')">Správa logů</button>
+<div class="container-fluid app-container" [ngClass]="currentRoute">
+    <header class="text-center py-3">
+        <h1 class="display-4">COMMMOTION</h1>
+        <nav class="d-flex justify-content-center flex-wrap">
+            <a
+                routerLink="/"
+                class="btn btn-success m-2"
+                routerLinkActive="active">
+                O aplikaci
+            </a>
+            <a
+                routerLink="/map"
+                class="btn btn-success m-2"
+                routerLinkActive="active">
+                Mapa
+            </a>
+            <a
+                routerLink="/logViewer"
+                class="btn btn-success m-2"
+                routerLinkActive="active">
+                Správa logů
+            </a>
         </nav>
     </header>
 
-    <main>
-        <!-- podmíněné vykreslování -->
-        @if (currentView === 'about') {
-        <app-about></app-about>
-        } @if (currentView === 'logViewer') {
-        <app-log-viewer></app-log-viewer>
-        } @if (currentView === 'map') {
-        <app-map></app-map>
-        }
-    </main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
 
-    <footer>
+    <footer class="text-center py-3 mt-auto">
         <p>&copy; 2024 Libor Šaja</p>
     </footer>
 </div>
