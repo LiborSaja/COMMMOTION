@@ -1,0 +1,35 @@
+<div class="container prehled">
+    <h2 class="text-center text-white">Přehled všech objektů</h2>
+    <p>BTS (Base Transceiver Station) - základnová stanice pro přenos a příjem radiových signálů z mobilního telefonu.</p>
+    <p>PD (Phone Device) - mobilní zařízení</p>
+    <div class="table-responsive">
+        <table class="table table-striped table-dark table-hover w-100">
+            <thead>
+                <tr>
+                    <th>BTS - Cell ID</th>
+                    <th>BTS - Latituda</th>
+                    <th>BTS - Longituda</th>
+                    <th>BTS - Čas</th>
+                    <th>BTS - Oblast</th>
+                    <th>BTS - Vlastník</th>
+                    <th>PD - Latituda</th>
+                    <th>PD - Longituda</th>
+                    <th>PD - Čas</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let obj of objectsArray">
+                    <td>{{ obj.BTS.cell_id }}</td>
+                    <td>{{ obj.BTS.lat }}</td>
+                    <td>{{ obj.BTS.lon }}</td>
+                    <td>{{ obj.BTS.measured_at | date : "HH:mm:ss" }}</td>
+                    <td>{{ obj.BTS.lac }}</td>
+                    <td>{{ obj.BTS.mnc }}</td>
+                    <td>{{ obj.PD.lat }}</td>
+                    <td>{{ obj.PD.lon }}</td>
+                    <td>{{ obj.PD.time | date : "HH:mm:ss" }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

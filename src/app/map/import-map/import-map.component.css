@@ -1,4 +1,9 @@
-#map {
-    height: 500px; /* Definuj jasnou výšku */
-    width: 100%; /* Šířka mapy přes celý kontejner */
+
+.map-container {
+    height: 500px; 
+    width: 100%; 
+}
+
+.p-3 {
+    padding: 1rem; 
 }

@@ -1,0 +1,9 @@
+.container-fluid {
+    color: aliceblue;
+}
+
+.mybg {
+    background-color: rgba(0, 0, 0, 0.7); /* Průhledné tmavé pozadí */
+    padding: 20px;
+    border-radius: 10px; /* Kulaté rohy */
+}

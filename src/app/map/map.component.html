@@ -1,1 +1,64 @@
-<app-import-map></app-import-map>
+<div class="mybg container-fluid">
+    <h2 class="text-center p-2">Mapa</h2>
+    <div class="row">
+        <!-- Levá část - Seznam logů -->
+        <div class="col-12 col-md-3">
+            <div class="row mb-3">
+                <div class="col">
+                    <!-- Komponenta pro seznam logů -->
+                    <div class="mybg p-2">Seznam logů v databázi:</div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col">
+                    <!-- Komponenta pro aktuálně importovaný log -->
+                    <div class="mybg p-2">
+                        <h6 class="p-1">
+                            Aktuálně importovaný (neuložený) log:
+                        </h6>
+                        <input
+                            type="text"
+                            id="logInput"
+                            class="form-control mb-3"
+                            value="Log" />
+
+                        <button
+                            class="btn btn-outline-primary mb-2 d-block w-100">
+                            Zobrazit importovaný log
+                        </button>
+
+                        <button
+                            class="btn btn-outline-success mb-2 d-block w-100">
+                            Uložit do databáze
+                        </button>
+
+                        <button
+                            class="btn btn-outline-secondary mb-2 d-block w-100"
+                            [routerLink]="['/logViewer']">
+                            Nahrát jiný log
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prostřední část - Mapa -->
+        <div class="col-12 col-md-6">
+            <app-import-map></app-import-map>
+        </div>
+
+        <!-- Pravá část - Informace o objektu -->
+        <div class="col-12 col-md-3">
+            <div class="mybg p-2">Informace o objektu:</div>
+        </div>
+    </div>
+
+    <!-- Spodní část - Informace o všech objektech -->
+    <div class="row">
+        <div class="col-12">
+            <div class="p-2">
+                <app-all-objects-viewer></app-all-objects-viewer>
+            </div>
+        </div>
+    </div>
+</div>
