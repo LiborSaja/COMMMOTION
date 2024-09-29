@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import * as L from "leaflet";
+import { Subject } from "rxjs";
 
 @Injectable({
     providedIn: "root",
@@ -9,6 +10,10 @@ export class MapdataService {
     private pointsLayer: L.LayerGroup | null = null;
     private selectedMarker: L.CircleMarker | null = null;
     private pointsBounds: L.LatLngBounds | null = null; //proměnná pro přizpůsobení pohledu
+
+    // Subject, který bude emitovat vybraný objekt
+    private selectedObjectSource = new Subject<any>();
+    selectedObject$ = this.selectedObjectSource.asObservable(); // Exponujeme jako Observable
 
     // Inicializace mapy
     initializeMap(
@@ -41,10 +46,11 @@ export class MapdataService {
             radius: 5,
         }).addTo(this.pointsLayer!); // Přidání do vrstvy
 
-        this.pointsBounds?.extend([lat,lon]); //přidání bodu
+        this.pointsBounds?.extend([lat, lon]); //přidání bodu
 
-        // Uložíme typ markeru jako vlastní atribut
+        // Uložit typ markeru a přiřadit prázdná data (budou přidány v MapComponent)
         (marker as any).markerType = type;
+        (marker as any).associatedData = null; // Zde se budou ukládat BTS a PD data
 
         return marker;
     }
@@ -65,11 +71,7 @@ export class MapdataService {
     }
 
     // Zvýraznění bodu po kliknutí
-    highlightPoint(
-        marker: L.CircleMarker,
-        type: "BTS" | "PD",
-        data: any
-    ): void {
+    highlightPoint(marker: L.CircleMarker): void {
         // Resetování předchozího vybraného bodu
         if (this.selectedMarker) {
             this.resetMarker(this.selectedMarker);
@@ -84,10 +86,18 @@ export class MapdataService {
         // Uložení aktuálního markeru jako vybraného
         this.selectedMarker = marker;
 
+        // Získání typu markeru a přidružených dat
+        const type = (marker as any).markerType;
+        const associatedData = (marker as any).associatedData;
+
+        // Emitování vybraného objektu, obsahujícího obě data
+        this.selectedObjectSource.next(associatedData);
+
         // Zobrazení popoveru s informacemi
+        const data = type === "BTS" ? associatedData.BTS : associatedData.PD;
         const info =
             type === "BTS"
-                ? `Informace o BTS<br>Cell ID: ${data.cell_id}<br>Zem. šířka: ${data.lat}<br>Zem. délka: ${data.lon}<br>Čas: ${data.measured_at}<br>Vlastník:${data.mnc}`
+                ? `Informace o BTS<br>Cell ID: ${data.cell_id}<br>Zem. šířka: ${data.lat}<br>Zem. délka: ${data.lon}<br>Čas: ${data.measured_at}<br>Oblast:${data.lac}<br>Vlastník: ${data.mnc}`
                 : `Informace o mobilním telefonu<br>Zem. šířka: ${data.lat}<br>Zem. délka: ${data.lon}<br>Čas: ${data.time}`;
 
         marker.bindPopup(info, { closeButton: true }).openPopup();
@@ -118,7 +128,7 @@ export class MapdataService {
                 [btsLat, btsLon],
                 [pdLat, pdLon],
             ],
-            { color: "black" }
+            { color: "black", interactive: false }
         );
         this.pointsLayer?.addLayer(line); // Přidáme přímku do vrstvy
     }

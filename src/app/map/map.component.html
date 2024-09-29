@@ -2,7 +2,7 @@
     <div class="row mybg">
         <!-- Levá část - Tabulka se seznamem logů, aktuálním logem a informacemi o objektu -->
         <div class="col-12 col-md-6 navtab mybg">
-            <h3 class="text-center p-2">Logy</h3>
+            <h3 class="text-center text-warning pb-3">Logy</h3>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <!-- Záložka pro seznam logů -->
                 <li class="nav-item" role="presentation">
@@ -15,7 +15,7 @@
                         role="tab"
                         aria-controls="loglist"
                         aria-selected="true">
-                        Seznam logů
+                        Databáze logů
                     </button>
                 </li>
                 <!-- Záložka pro aktuálně importovaný log -->
@@ -29,7 +29,7 @@
                         role="tab"
                         aria-controls="importedlog"
                         aria-selected="false">
-                        Vložené soubory
+                        Aktuálně vložený soubor
                     </button>
                 </li>
                 <!-- Záložka pro informace o objektu -->
@@ -43,7 +43,7 @@
                         role="tab"
                         aria-controls="objectinfo"
                         aria-selected="false">
-                        Informace o objektu
+                        Data vybraného objektu&nbsp;&nbsp;&nbsp;
                     </button>
                 </li>
             </ul>
@@ -82,7 +82,7 @@
                             </button>
                         </div>
                         <div class="pt-5">
-                            <h6 class="pb-3">Uložit do databáze:</h6>
+                            <h6 class="pb-3">Uložit tento log do databáze:</h6>
                             <input
                                 type="text"
                                 id="logInput"
@@ -102,7 +102,9 @@
                     role="tabpanel"
                     aria-labelledby="objectinfo-tab">
                     <div class="p-2">
-                        <h5>Informace o vybraném objektu:</h5>
+                        <h6>
+                            Informace o označeném objektu na mapě a jeho vazbě:
+                        </h6>
                         <app-one-object-viewer></app-one-object-viewer>
                     </div>
                 </div>
@@ -111,7 +113,7 @@
 
         <!-- Pravá část - Mapa a checkboxy -->
         <div class="col-12 col-md-6 maptab mybg">
-            <h3 class="text-center p-2">Mapa</h3>
+            <h3 class="text-center text-warning">Mapa</h3>
             <!-- checkboxy -->
             <div class="map-controls d-flex justify-content-start p-2">
                 <div class="form-check me-4">
@@ -145,7 +147,7 @@
     </div>
 
     <!-- Spodní část - Informace o všech objektech -->
-    <div class="row mybg mt-3">
+    <div class="row mybg mt-3" id="all-objects-viewer-section">
         <div class="col-12">
             <app-all-objects-viewer></app-all-objects-viewer>
         </div>

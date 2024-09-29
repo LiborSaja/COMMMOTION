@@ -2,7 +2,7 @@
     <!-- Navigační menu -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" routerLink="/">COMMMOTION</a>
+            <a class="navbar-brand" routerLink="/">CO<span class="text-warning">MMM</span>OTION</a>
             <button
                 class="navbar-toggler"
                 type="button"
@@ -22,6 +22,7 @@
                             routerLink="/"
                             class="nav-link"
                             routerLinkActive="active"
+                            [routerLinkActiveOptions]="{ exact: true }"
                             (click)="closeMenu()">
                             <i class="fas fa-home fa-2x"></i>
                             <span>O aplikaci</span>

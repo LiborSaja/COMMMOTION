@@ -8,7 +8,7 @@ import {
     NavigationEnd,
     Router,
     RouterLink,
-    RouterOutlet,
+    RouterOutlet, RouterModule
 } from "@angular/router";
 
 @Component({
@@ -21,7 +21,8 @@ import {
         AboutComponent,
         RouterOutlet,
         RouterLink,
-        GuideComponent
+        GuideComponent,
+        RouterModule
     ],
     templateUrl: "./app.component.html",
     styleUrl: "./app.component.css",

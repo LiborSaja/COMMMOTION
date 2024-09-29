@@ -8,15 +8,15 @@
 
 /* Pevně umístěné pozadí podle stránky */
 .about-background {
-    background-color: #0174BE;
+    background-color: #0174be;
 }
 
 .map-background {
-    background-color: #0174BE;
+    background-color: #0174be;
 }
 
 .log-viewer-background {
-    background-color: #0174BE;
+    background-color: #0174be;
 }
 
 /* Zabrání horizontálnímu posunu sekcí */
@@ -63,6 +63,7 @@ p {
     align-items: center; /* Centrované zarovnání */
     justify-content: center;
     text-decoration: none; /* Odstranění podtržení */
+    transition: background-color 0.3s ease; /* Přechod pro plynulou změnu pozadí */
 }
 
 .nav-item .nav-link .fa-2x {
@@ -70,15 +71,16 @@ p {
 }
 
 .nav-link:hover {
-    color: #ffffffb3; /* Mírné zvýraznění na hover */
+    color: rgba(255, 255, 255, 0.1); /* Zvýraznění textu při hoveru */
 }
 
-.active {
-    color: #FFC436; /* Barva aktivního odkazu */
+/* Vzhled aktivní položky */
+.nav-item .nav-link.active {
+    color: #ffc436; /* Změna barvy textu na tmavě modrou */
 }
 
 .navbar-dark {
-    background-color: #0C356A; /* Tmavé pozadí pro lištu */
+    background-color: #0c356a; /* Tmavé pozadí pro lištu */
 }
 
 .navbar-nav {

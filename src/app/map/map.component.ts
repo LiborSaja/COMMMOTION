@@ -39,6 +39,11 @@ export class MapComponent implements OnInit {
         // Načítání dat z logsdata.service
         const logs = this.logsDataService.getObjectsArray();
         this.renderLogs(logs);
+
+        // Naslouchání na kliknutí markerů z MapDataService
+        this.mapDataService.selectedObject$.subscribe(() => {
+            this.switchToObjectInfoTab(); // Přepnutí záložky při výběru objektu
+        });
     }
 
     // Přepínače pro zobrazení bodů
@@ -66,8 +71,10 @@ export class MapComponent implements OnInit {
                     BTS.lon,
                     "BTS"
                 );
+                // Přidáme oba objekty (BTS i PD) k markeru - když kliknu na jakýkoli marker, budi mít přístup k oběma propojeným objektům
+                (btsMarker as any).associatedData = { BTS, PD };
                 btsMarker.on("click", () =>
-                    this.mapDataService.highlightPoint(btsMarker, "BTS", BTS)
+                    this.mapDataService.highlightPoint(btsMarker)
                 );
             }
 
@@ -78,8 +85,10 @@ export class MapComponent implements OnInit {
                     PD.lon,
                     "PD"
                 );
+                // Přidat oba objekty (BTS i PD) k markeru - když kliknu na jakýkoli marker, budi mít přístup k oběma propojeným objektům
+                (pdMarker as any).associatedData = { BTS, PD };
                 pdMarker.on("click", () =>
-                    this.mapDataService.highlightPoint(pdMarker, "PD", PD)
+                    this.mapDataService.highlightPoint(pdMarker)
                 );
             }
 
@@ -94,5 +103,36 @@ export class MapComponent implements OnInit {
             }
         });
         this.mapDataService.fitToBounds();
+    }
+
+    // Přepnutí na záložku s informacemi o objektu
+    switchToObjectInfoTab(): void {
+        const logTab = document.getElementById("loglist-tab");
+        const importedLogTab = document.getElementById("importedlog-tab");
+        const objectInfoTab = document.getElementById("objectinfo-tab");
+
+        const logPane = document.getElementById("loglist");
+        const importedLogPane = document.getElementById("importedlog");
+        const objectInfoPane = document.getElementById("objectinfo");
+
+        if (objectInfoTab && objectInfoPane) {
+            // Aktivujeme záložku Data vybraného objektu
+            objectInfoTab.classList.add("active");
+            objectInfoTab.setAttribute("aria-selected", "true");
+            objectInfoPane.classList.add("show", "active");
+
+            // Deaktivujeme ostatní záložky
+            if (logTab && logPane) {
+                logTab.classList.remove("active");
+                logTab.setAttribute("aria-selected", "false");
+                logPane.classList.remove("show", "active");
+            }
+
+            if (importedLogTab && importedLogPane) {
+                importedLogTab.classList.remove("active");
+                importedLogTab.setAttribute("aria-selected", "false");
+                importedLogPane.classList.remove("show", "active");
+            }
+        }
     }
 }
