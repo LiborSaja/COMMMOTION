@@ -1,68 +1,153 @@
-<div class="mybg container-fluid">
-    <h2 class="text-center p-2">Mapa</h2>
-    <div class="row">
-        <!-- Levá část - Seznam logů -->
-        <div class="col-12 col-md-3">
-            <div class="row mb-3">
-                <div class="col">
-                    <!-- Komponenta pro seznam logů -->
+<div class="container-fluid">
+    <div class="row mybg">
+        <!-- Levá část - Tabulka se seznamem logů, aktuálním logem a informacemi o objektu -->
+        <div class="col-12 col-md-6 navtab mybg">
+            <h3 class="text-center p-2">Logy</h3>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <!-- Záložka pro seznam logů -->
+                <li class="nav-item" role="presentation">
+                    <button
+                        class="nav-link active"
+                        id="loglist-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#loglist"
+                        type="button"
+                        role="tab"
+                        aria-controls="loglist"
+                        aria-selected="true">
+                        Seznam logů
+                    </button>
+                </li>
+                <!-- Záložka pro aktuálně importovaný log -->
+                <li class="nav-item" role="presentation">
+                    <button
+                        class="nav-link"
+                        id="importedlog-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#importedlog"
+                        type="button"
+                        role="tab"
+                        aria-controls="importedlog"
+                        aria-selected="false">
+                        Vložené soubory
+                    </button>
+                </li>
+                <!-- Záložka pro informace o objektu -->
+                <li class="nav-item" role="presentation">
+                    <button
+                        class="nav-link"
+                        id="objectinfo-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#objectinfo"
+                        type="button"
+                        role="tab"
+                        aria-controls="objectinfo"
+                        aria-selected="false">
+                        Informace o objektu
+                    </button>
+                </li>
+            </ul>
+
+            <!-- Obsah záložek -->
+            <div class="tab-content" id="myTabContent">
+                <!-- Obsah záložky Seznam logů -->
+                <div
+                    class="tab-pane fade show active"
+                    id="loglist"
+                    role="tabpanel"
+                    aria-labelledby="loglist-tab">
                     <div class="mybg p-2">
                         <app-loglist></app-loglist>
                     </div>
                 </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col">
-                    <!-- Komponenta pro aktuálně importovaný log -->
+                <!-- Obsah záložky Aktuálně importovaný log -->
+                <div
+                    class="tab-pane fade"
+                    id="importedlog"
+                    role="tabpanel"
+                    aria-labelledby="importedlog-tab">
                     <div class="mybg p-2">
                         <h6 class="p-1">
-                            Aktuálně importovaný (neuložený) log:
+                            Aktuálně vytvořený log z vložených souborů:
                         </h6>
-                        <input
-                            type="text"
-                            id="logInput"
-                            class="form-control mb-3"
-                            value="Log" />
-
-                        <button
-                            class="btn btn-outline-primary mb-2 d-block w-100">
-                            Zobrazit importovaný log
-                        </button>
-
-                        <button
-                            class="btn btn-outline-success mb-2 d-block w-100">
-                            Uložit do databáze
-                        </button>
-
-                        <button
-                            class="btn btn-outline-secondary mb-2 d-block w-100"
-                            [routerLink]="['/logViewer']">
-                            Nahrát jiný log
-                        </button>
+                        <div class="pt-3">
+                            <button
+                                class="btn btn-outline-primary mb-2 d-block w-100">
+                                Zobrazit log na mapě
+                            </button>
+                            <button
+                                class="btn btn-outline-secondary mb-2 d-block w-100"
+                                [routerLink]="['/logViewer']">
+                                Vložit jiné soubory
+                            </button>
+                        </div>
+                        <div class="pt-5">
+                            <h6 class="pb-3">Uložit do databáze:</h6>
+                            <input
+                                type="text"
+                                id="logInput"
+                                class="form-control mb-3"
+                                placeholder="Zadejte název" />
+                            <button
+                                class="btn btn-outline-success mb-2 d-block w-100">
+                                Uložit do databáze
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Obsah záložky Informace o objektu -->
+                <div
+                    class="tab-pane fade"
+                    id="objectinfo"
+                    role="tabpanel"
+                    aria-labelledby="objectinfo-tab">
+                    <div class="p-2">
+                        <h5>Informace o vybraném objektu:</h5>
+                        <app-one-object-viewer></app-one-object-viewer>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Prostřední část - Mapa -->
-        <div class="col-12 col-md-6">
-            <app-import-map></app-import-map>
-        </div>
-
-        <!-- Pravá část - Informace o objektu -->
-        <div class="col-12 col-md-3">
-            <div class="mybg p-2">
-                <app-one-object-viewer></app-one-object-viewer>
+        <!-- Pravá část - Mapa a checkboxy -->
+        <div class="col-12 col-md-6 maptab mybg">
+            <h3 class="text-center p-2">Mapa</h3>
+            <!-- checkboxy -->
+            <div class="map-controls d-flex justify-content-start p-2">
+                <div class="form-check me-4">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="infoMobil"
+                        [checked]="showPD"
+                        (change)="togglePD()" />
+                    <label class="form-check-label" for="infoMobil">
+                        <span class="text-primary"><strong>🞉</strong></span>
+                        Zobrazit souřadnice mobilního telefonu
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="infoBTS"
+                        [checked]="showBTS"
+                        (change)="toggleBTS()" />
+                    <label class="form-check-label" for="infoBTS">
+                        <span class="text-danger"><strong>🞉</strong></span>
+                        Zobrazit souřadnice BTS
+                    </label>
+                </div>
             </div>
+            <!-- mapa -->
+            <app-import-map></app-import-map>
         </div>
     </div>
 
     <!-- Spodní část - Informace o všech objektech -->
-    <div class="row">
+    <div class="row mybg mt-3">
         <div class="col-12">
-            <div class="p-2">
-                <app-all-objects-viewer></app-all-objects-viewer>
-            </div>
+            <app-all-objects-viewer></app-all-objects-viewer>
         </div>
     </div>
 </div>

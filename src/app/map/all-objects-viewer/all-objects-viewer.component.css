@@ -1,15 +1,15 @@
 .prehled {
-    background-color: rgba(0, 0, 0, 0.7); /* Průhledné tmavé pozadí */
+    background-color: rgba(0, 0, 0, 0.7); 
     padding: 20px;
-    border-radius: 10px; /* Kulaté rohy */
+    border-radius: 10px; 
 }
 
 .table-dark th {
-    color: white; /* Bílé písmo v záhlaví tabulky */
+    color: white; 
 }
 
 .table-dark td {
-    color: white; /* Bílé písmo v buňkách tabulky */
+    color: white; 
 }
 
 .table-hover tbody tr:hover {
@@ -18,7 +18,7 @@
         255,
         255,
         0.1
-    ); /* Jemné zvýraznění při hoveru */
+    ); 
 }
 
 h2 {
@@ -26,7 +26,7 @@ h2 {
 }
 
 .table-responsive {
-    max-height: 500px; /* Nastavíme výšku, aby byl vidět efekt scrollování */
+    max-height: 450px; /* Nastavíme výšku, aby byl vidět efekt scrollování */
     overflow-y: auto; /* Povolit vertikální scrollování */
     overflow-x: auto; /* Povolit horizontální scrollování */
 }

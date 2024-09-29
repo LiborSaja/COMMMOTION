@@ -2,42 +2,50 @@
     min-height: 100vh;
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; 
+    background-attachment: fixed;
     width: 100%;
 }
 
+/* Pevně umístěné pozadí podle stránky */
 .about-background {
-    background: url("/mmm5.jpg") no-repeat center center fixed;
-    background-size: cover;
+    background-color: #0174BE;
 }
 
 .map-background {
-    background: url("/mmm3.jpg") no-repeat center center fixed;
-    background-size: cover;
+    background-color: #0174BE;
 }
 
 .log-viewer-background {
-    background: url("/mmm2.jpg") no-repeat center center fixed;
-    background-size: cover;
+    background-color: #0174BE;
 }
 
+/* Zabrání horizontálnímu posunu sekcí */
 header,
 main,
 footer {
     max-width: 100%;
-    overflow-x: hidden; /* Zabrání horizontálnímu posunu jednotlivých sekcí */
-}
-
-nav {
-    display: flex;
-    flex-wrap: wrap; /* Zajistí, že tlačítka se při menších šířkách zalamují na další řádek */
-    justify-content: center; /* Centrovaná navigace */
-    max-width: 100%;
     overflow-x: hidden;
 }
 
+/* Upravená navigační lišta */
+nav.navbar {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    overflow-x: hidden;
+    z-index: 1030; /* Zajišťuje, že navigace bude nad obsahem */
+    position: fixed; /* Fixní pozice, zůstane na vrcholu stránky */
+    top: 0;
+    width: 100%;
+}
+
+/* Přidáme prostor pro hlavní obsah, aby nezačínal pod navigací */
+.container-fluid.pt-5 {
+    padding-top: 70px; /* Uprav dle výšky navigačního menu */
+}
+
 button {
-    max-width: 100%; /* Zajistí, že tlačítka nebudou přesahovat šířku svého kontejneru */
+    max-width: 100%;
 }
 
 h1 {
@@ -46,4 +54,33 @@ h1 {
 
 p {
     color: aliceblue;
+}
+
+.nav-item .nav-link {
+    color: white; /* Barva textu */
+    display: flex;
+    flex-direction: column; /* Ikona nad textem */
+    align-items: center; /* Centrované zarovnání */
+    justify-content: center;
+    text-decoration: none; /* Odstranění podtržení */
+}
+
+.nav-item .nav-link .fa-2x {
+    margin-bottom: 5px; /* Odsazení mezi ikonou a textem */
+}
+
+.nav-link:hover {
+    color: #ffffffb3; /* Mírné zvýraznění na hover */
+}
+
+.active {
+    color: #FFC436; /* Barva aktivního odkazu */
+}
+
+.navbar-dark {
+    background-color: #0C356A; /* Tmavé pozadí pro lištu */
+}
+
+.navbar-nav {
+    justify-content: flex-start; /* Zarovná položky doleva */
 }

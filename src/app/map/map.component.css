@@ -3,7 +3,44 @@
 }
 
 .mybg {
-    background-color: rgba(0, 0, 0, 0.7); /* Průhledné tmavé pozadí */
+    background-color: rgba(0, 0, 0, 0.7);
     padding: 20px;
-    border-radius: 10px; /* Kulaté rohy */
+    border-radius: 10px;
+}
+
+.navtab {
+    width: 600px;
+}
+
+.maptab {
+    width: 800px;
+}
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+.nav-tabs .nav-link {
+    border: none; /* Žádný okraj kolem neaktivních záložek */
+    border-bottom: 1px solid #ddd; /* Spodní okraj pro neaktivní záložky */
+    color: aliceblue; /* Barva textu neaktivních záložek */
+}
+
+.nav-tabs .nav-link.active {
+    border: 1px solid #ddd; /* Okraj kolem aktivní záložky */
+    border-bottom: 1px solid transparent; /* Transparentní spodní okraj - odstraní čáru pod aktivní záložkou */
+    background-color: transparent; /* Průhledné pozadí pro aktivní záložku */
+    color: aliceblue; /* Barva textu aktivní záložky */
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tab-content{
+    border-bottom: 1px solid aliceblue;
+    border-left: 1px solid aliceblue;
+    border-right: 1px solid aliceblue;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
 }
