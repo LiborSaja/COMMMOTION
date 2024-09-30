@@ -21,16 +21,16 @@
 }
 
 .nav-tabs .nav-link {
-    border: none; /* Žádný okraj kolem neaktivních záložek */
-    border-bottom: 1px solid #ddd; /* Spodní okraj pro neaktivní záložky */
-    color: aliceblue; /* Barva textu neaktivních záložek */
+    border: none; 
+    border-bottom: 1px solid #ddd; 
+    color: aliceblue; 
 }
 
 .nav-tabs .nav-link.active {
-    border: 1px solid #ddd; /* Okraj kolem aktivní záložky */
-    border-bottom: 1px solid transparent; /* Transparentní spodní okraj - odstraní čáru pod aktivní záložkou */
-    background-color: transparent; /* Průhledné pozadí pro aktivní záložku */
-    color: aliceblue; /* Barva textu aktivní záložky */
+    border: 1px solid #ddd; 
+    border-bottom: 1px solid transparent;
+    background-color: transparent;
+    color: aliceblue; 
 }
 
 .tab-content {

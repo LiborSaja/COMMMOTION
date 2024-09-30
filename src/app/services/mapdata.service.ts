@@ -6,106 +6,125 @@ import { Subject } from "rxjs";
     providedIn: "root",
 })
 export class MapdataService {
-    private map: L.Map | null = null;
-    private pointsLayer: L.LayerGroup | null = null;
-    private selectedMarker: L.CircleMarker | null = null;
-    private pointsBounds: L.LatLngBounds | null = null; //proměnná pro přizpůsobení pohledu
-
-    // Subject, který bude emitovat vybraný objekt
+    private map: L.Map | null = null; // Instance Leaflet mapy
+    private pointsLayer: L.LayerGroup | null = null; // Vrstvy pro uložení všech bodů na mapě
+    private selectedMarker: L.CircleMarker | null = null; // Uložený bod, který byl naposledy vybrán
+    // Uložené souřadnice všech bodů, které se použijí pro přizpůsobení pohledu mapy
+    private pointsBounds: L.LatLngBounds | null = null;
+    // RxJS Subject, který slouží k předávání informací o vybraném objektu mezi komponentami
     private selectedObjectSource = new Subject<any>();
-    selectedObject$ = this.selectedObjectSource.asObservable(); // Exponujeme jako Observable
+    // Exponujeme Observable, na který mohou ostatní komponenty naslouchat
+    /**
+     * Když v nějaké části kódu dojde ke změně dat (např. zde při kliknutí na bod na mapě), Subject tuto změnu zaznamená a 
+     * informuje všechny komponenty nebo služby, které "naslouchají" na tento Observable (pomocí .subscribe()).
+     */
+    selectedObject$ = this.selectedObjectSource.asObservable();
 
-    // Inicializace mapy
+    // Funkce pro inicializaci mapy
     initializeMap(
         mapId: string,
         center: [number, number],
         zoom: number
     ): L.Map {
+        // Pokud již mapa existuje, bude odtraněna a inicializována znovu
         if (this.map) {
-            this.map.remove(); // Odstraníme mapu, pokud již existuje
+            this.map.remove();
             this.map = null;
         }
+
+        // Vytvoření nové mapy
         this.map = L.map(mapId).setView(center, zoom);
 
+        // Přidání vrstev OpenStreetMap do mapy
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             attribution: "&copy; OpenStreetMap contributors",
         }).addTo(this.map);
 
+        // Vytvoření skupiny bodů na mapě
         this.pointsLayer = L.layerGroup().addTo(this.map);
-        this.pointsBounds = new L.LatLngBounds([]); //inicializace
+
+        // Inicializace souřadnic všech bodů pro úpravu zobrazení mapy
+        this.pointsBounds = new L.LatLngBounds([]);
+
         return this.map;
     }
 
-    // Přidávání bodů do mapy
+    // Přidání nového bodu (BTS nebo PD) do mapy
     addPoint(lat: number, lon: number, type: "BTS" | "PD"): L.CircleMarker {
+        // Nastavení barvy bodu podle typu (BTS - červená, PD - modrá)
         const color = type === "BTS" ? "red" : "blue";
+
+        // Vytvoření nového bodu s barvou a vlastnostmi
         const marker = L.circleMarker([lat, lon], {
             color,
-            fillColor: color, // Použijeme `fillColor` pro plné body
-            fillOpacity: 1, // Plná neprůhlednost
+            fillColor: color,
+            fillOpacity: 1, // Plně vybarvený bod
             radius: 5,
-        }).addTo(this.pointsLayer!); // Přidání do vrstvy
+        }).addTo(this.pointsLayer!); // Přidání bodu do vrstvy
 
-        this.pointsBounds?.extend([lat, lon]); //přidání bodu
+        // Rozšíření bounds, aby bylo možné přizpůsobit zobrazení mapy
+        this.pointsBounds?.extend([lat, lon]);
 
-        // Uložit typ markeru a přiřadit prázdná data (budou přidány v MapComponent)
+        // Uložení typu markeru (BTS nebo PD) a připravení asociovaných dat (vzájemná vazba mezi PD a BTS)
         (marker as any).markerType = type;
-        (marker as any).associatedData = null; // Zde se budou ukládat BTS a PD data
+        (marker as any).associatedData = null; // Asociovaná data budou přidána později
 
         return marker;
     }
 
-    // Nastavení mapy tak, aby se přizpůsobila všem bodům
+    // Přizpůsobení zobrazení mapy tak, aby byly vidět všechny body
     fitToBounds(): void {
         if (this.pointsBounds && this.map) {
-            this.map.fitBounds(this.pointsBounds); // Změní zoom a pozici mapy, aby všechny body byly vidět
+            this.map.fitBounds(this.pointsBounds);
         }
     }
 
     // Vyčištění všech bodů z mapy
     clearPoints(): void {
         if (this.pointsLayer) {
-            this.pointsLayer.clearLayers();
+            this.pointsLayer.clearLayers(); // Odstraní všechny vrstvy bodů z mapy
         }
+
+        // Obnovení bounds pro nové body
         this.pointsBounds = new L.LatLngBounds([]);
     }
 
-    // Zvýraznění bodu po kliknutí
+    // Zvýraznění vybraného bodu při kliknutí
     highlightPoint(marker: L.CircleMarker): void {
-        // Resetování předchozího vybraného bodu
+        // Pokud byl vybrán nějaký bod předtím, bude resetován jeho styl
         if (this.selectedMarker) {
             this.resetMarker(this.selectedMarker);
         }
 
-        // Zvýraznění aktuálního bodu
+        // Zvýraznění aktuálního vybraného bodu
         marker.setStyle({
-            radius: 10,
-            weight: 2,
+            radius: 10, // Zvýšení velikosti
+            weight: 2, // Zvýšení tloušťky okraje
         });
 
-        // Uložení aktuálního markeru jako vybraného
+        // Uložení tohoto bodu jako aktuálně vybraný
         this.selectedMarker = marker;
 
-        // Získání typu markeru a přidružených dat
+        // Získání typu markeru a asociovaná data (BTS nebo PD)
         const type = (marker as any).markerType;
         const associatedData = (marker as any).associatedData;
 
-        // Emitování vybraného objektu, obsahujícího obě data
+        // Emitování vybraného objektu (BTS a PD data) pro naslouchající komponenty
         this.selectedObjectSource.next(associatedData);
 
-        // Zobrazení popoveru s informacemi
+        // Zobrazení bubliny s informacemi o bodu na mapě, na mapě
         const data = type === "BTS" ? associatedData.BTS : associatedData.PD;
         const info =
             type === "BTS"
                 ? `Informace o BTS<br>Cell ID: ${data.cell_id}<br>Zem. šířka: ${data.lat}<br>Zem. délka: ${data.lon}<br>Čas: ${data.measured_at}<br>Oblast:${data.lac}<br>Vlastník: ${data.mnc}`
                 : `Informace o mobilním telefonu<br>Zem. šířka: ${data.lat}<br>Zem. délka: ${data.lon}<br>Čas: ${data.time}`;
 
-        marker.bindPopup(info, { closeButton: true }).openPopup();
+        marker.bindPopup(info, { closeButton: true }).openPopup(); // bublina s detaily
     }
 
-    // Resetování bodu zpět na původní barvu
+    // Resetování vybraného bodu na původní styl
     resetMarker(marker: L.CircleMarker): void {
-        // Použití uloženého typu markeru (BTS nebo PD)
+        // Získání typu markeru (BTS nebo PD) a vrácení původní barvy
         const type = (marker as any).markerType;
         const color = type === "BTS" ? "red" : "blue";
         marker.setStyle({
@@ -116,7 +135,7 @@ export class MapdataService {
         });
     }
 
-    // Přidání přímky mezi body BTS a PD
+    // Přidání přímky mezi BTS a PD body na mapě
     addConnectionLine(
         btsLat: number,
         btsLon: number,
@@ -128,8 +147,10 @@ export class MapdataService {
                 [btsLat, btsLon],
                 [pdLat, pdLon],
             ],
-            { color: "black", interactive: false }
+            { color: "black", interactive: false } // Interaktivita je vypnutá, aby přímka nepřekážela klikání na body
         );
-        this.pointsLayer?.addLayer(line); // Přidáme přímku do vrstvy
+
+        // Přidání přímky mezi body do vrstvy
+        this.pointsLayer?.addLayer(line);
     }
 }

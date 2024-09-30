@@ -10,12 +10,16 @@ import { CommonModule } from "@angular/common";
     styleUrl: "./all-objects-viewer.component.css",
 })
 export class AllObjectsViewerComponent implements OnInit {
+    // Proměnná pro ukládání pole objektů (BTS a PD)
     objectsArray: any[] = [];
 
     constructor(private logsdataService: LogsdataService) {}
 
+    
+    //Metoda ngOnInit, která se spustí při inicializaci komponenty
+    //Načítá data z LogsdataService a ukládá je do proměnné objectsArray
     ngOnInit(): void {
-        // Získání dat ze služby
+        // Získání dat (pole objektů) ze služby LogsdataService
         this.objectsArray = this.logsdataService.getObjectsArray();
     }
 }

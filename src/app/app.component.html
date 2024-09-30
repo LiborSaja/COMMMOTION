@@ -2,7 +2,11 @@
     <!-- Navigační menu -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" routerLink="/">CO<span class="text-warning">MMM</span>OTION</a>
+            <a class="navbar-brand" routerLink="/">
+                CO
+                <span class="text-warning">MMM</span>
+                OTION
+            </a>
             <button
                 class="navbar-toggler"
                 type="button"
@@ -62,16 +66,15 @@
             </div>
         </div>
     </nav>
-
+    <!-- obsah -->
     <div class="container-fluid pt-5">
-        <!-- Odsazení pro navigaci -->
         <div class="row justify-content-center">
             <div class="col-12 pt-5">
                 <router-outlet></router-outlet>
             </div>
         </div>
     </div>
-
+    <!-- footer -->
     <footer class="text-center py-3 mt-auto">
         <p>&copy; 2024 Libor Šaja</p>
     </footer>

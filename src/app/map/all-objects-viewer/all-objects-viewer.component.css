@@ -26,17 +26,17 @@ h2 {
 }
 
 .table-responsive {
-    max-height: 450px; /* Nastavíme výšku, aby byl vidět efekt scrollování */
+    max-height: 450px; 
     overflow-y: auto; /* Povolit vertikální scrollování */
     overflow-x: auto; /* Povolit horizontální scrollování */
 }
 
 thead th {
-    position: sticky; /* Umožní, aby se hlavička "přilepila" */
-    top: 0; /* Přilepí ji k horní hraně kontejneru */
+    position: sticky; 
+    top: 0; 
     background-color: rgb(0, 0, 0);
-    z-index: 2; /* Zajistí, že hlavička bude nad obsahem tabulky */
-    color: white; /* Bílé písmo pro čitelnost */
+    z-index: 2; 
+    color: white; 
     padding-top: 10px;
     padding-bottom: 10px;
 }

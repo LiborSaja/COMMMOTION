@@ -6,7 +6,6 @@
     width: 100%;
 }
 
-/* Pevně umístěné pozadí podle stránky */
 .about-background {
     background-color: #0174be;
 }
@@ -27,21 +26,19 @@ footer {
     overflow-x: hidden;
 }
 
-/* Upravená navigační lišta */
 nav.navbar {
     display: flex;
     justify-content: center;
     max-width: 100%;
     overflow-x: hidden;
-    z-index: 1030; /* Zajišťuje, že navigace bude nad obsahem */
-    position: fixed; /* Fixní pozice, zůstane na vrcholu stránky */
+    z-index: 1030;
+    position: fixed;
     top: 0;
     width: 100%;
 }
 
-/* Přidáme prostor pro hlavní obsah, aby nezačínal pod navigací */
 .container-fluid.pt-5 {
-    padding-top: 70px; /* Uprav dle výšky navigačního menu */
+    padding-top: 70px;
 }
 
 button {
@@ -57,32 +54,31 @@ p {
 }
 
 .nav-item .nav-link {
-    color: white; /* Barva textu */
+    color: white;
     display: flex;
-    flex-direction: column; /* Ikona nad textem */
-    align-items: center; /* Centrované zarovnání */
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    text-decoration: none; /* Odstranění podtržení */
-    transition: background-color 0.3s ease; /* Přechod pro plynulou změnu pozadí */
+    text-decoration: none;
+    transition: background-color 0.3s ease;
 }
 
 .nav-item .nav-link .fa-2x {
-    margin-bottom: 5px; /* Odsazení mezi ikonou a textem */
+    margin-bottom: 5px;
 }
 
 .nav-link:hover {
-    color: rgba(255, 255, 255, 0.1); /* Zvýraznění textu při hoveru */
+    color: rgba(255, 255, 255, 0.1);
 }
 
-/* Vzhled aktivní položky */
 .nav-item .nav-link.active {
-    color: #ffc436; /* Změna barvy textu na tmavě modrou */
+    color: #ffc436;
 }
 
 .navbar-dark {
-    background-color: #0c356a; /* Tmavé pozadí pro lištu */
+    background-color: #0c356a;
 }
 
 .navbar-nav {
-    justify-content: flex-start; /* Zarovná položky doleva */
+    justify-content: flex-start;
 }

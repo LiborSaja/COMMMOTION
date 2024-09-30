@@ -8,7 +8,8 @@ import {
     NavigationEnd,
     Router,
     RouterLink,
-    RouterOutlet, RouterModule
+    RouterOutlet,
+    RouterModule,
 } from "@angular/router";
 
 @Component({
@@ -22,39 +23,41 @@ import {
         RouterOutlet,
         RouterLink,
         GuideComponent,
-        RouterModule
+        RouterModule,
     ],
     templateUrl: "./app.component.html",
     styleUrl: "./app.component.css",
 })
 export class AppComponent {
-    currentRoute: string = "";
+    currentRoute: string = ""; // Uchovává název aktuální cesty (route) pro aplikaci třídy pozadí
 
     constructor(private router: Router) {
+        // Sleduje změny v navigaci (routeru) a reaguje při ukončení navigace (NavigationEnd)
         this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
-                this.updateBackgroundClass(event.urlAfterRedirects);
+                this.updateBackgroundClass(event.urlAfterRedirects); // Volá funkci pro změnu třídy pozadí na základě aktuální cesty
             }
         });
     }
 
+    // Aktualizuje třídu pozadí aplikace na základě aktuální cesty
     updateBackgroundClass(url: string): void {
         if (url.includes("map")) {
-            this.currentRoute = "map-background";
+            this.currentRoute = "map-background"; // Pokud cesta obsahuje "map", nastaví třídu pro pozadí mapy
         } else if (url.includes("logViewer")) {
-            this.currentRoute = "log-viewer-background";
+            this.currentRoute = "log-viewer-background"; // Pokud cesta obsahuje "logViewer", nastaví třídu pro pozadí log vieweru
         } else {
-            this.currentRoute = "about-background";
+            this.currentRoute = "about-background"; // Pro ostatní cesty nastaví třídu pro pozadí sekce "O nás"
         }
     }
 
-    //automatické zavírání menu při prohlížení na malých obrazovkách
+    // Funkce pro automatické zavírání menu při prohlížení na malých obrazovkách
     closeMenu() {
         const navbarCollapse = document.getElementById("navbarNav");
 
-        // Zkontrolujeme, zda je menu zobrazeno (má třídu 'show')
+        // Zkontroluje, zda je menu zobrazeno (má třídu 'show'), a pokud ano, odstraní ji
         if (navbarCollapse && navbarCollapse.classList.contains("show")) {
-            navbarCollapse.classList.remove("show");
+            navbarCollapse.classList.remove("show"); // Skryje menu na malých obrazovkách
         }
     }
 }
