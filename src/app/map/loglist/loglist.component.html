@@ -1,15 +1,11 @@
 <div class="container">
     <h6>Seznam logů uložených v databázi:</h6>
     <div class="list-group overflow-auto list">
-        <li class="list-group-item list-group-item-action">Log 1</li>
-        <li class="list-group-item list-group-item-action">Log 2</li>
-        <li class="list-group-item list-group-item-action">Log 3</li>
-        <li class="list-group-item list-group-item-action">Log 4</li>
-        <li class="list-group-item list-group-item-action">Log 5</li>
-        <li class="list-group-item list-group-item-action">Log 6</li>
-        <li class="list-group-item list-group-item-action">Log 7</li>
-        <li class="list-group-item list-group-item-action">Log 8</li>
-        <li class="list-group-item list-group-item-action">Log 9</li>
-        <li class="list-group-item list-group-item-action">Log 10</li>
+      <li *ngFor="let log of logs" class="list-group-item list-group-item-action">
+        {{ log.name }} <!-- Zobrazení názvu logu -->
+        <!-- Tlačítko pro zobrazení konkrétního logu -->
+        <button class="btn btn-primary float-end" (click)="showLog(log.id)">Zobrazit</button>
+      </li>
     </div>
-</div>
+  </div>
+  

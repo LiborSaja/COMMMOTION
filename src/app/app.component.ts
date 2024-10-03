@@ -4,6 +4,7 @@ import { LogViewerComponent } from "./log-viewer/log-viewer.component";
 import { AboutComponent } from "./about/about.component";
 import { GuideComponent } from "./guide/guide.component";
 import { CommonModule } from "@angular/common";
+import { HttpClient } from "@angular/common/http";
 import {
     NavigationEnd,
     Router,
@@ -11,6 +12,7 @@ import {
     RouterOutlet,
     RouterModule,
 } from "@angular/router";
+
 
 @Component({
     selector: "app-root",
@@ -27,6 +29,7 @@ import {
     ],
     templateUrl: "./app.component.html",
     styleUrl: "./app.component.css",
+    providers: [HttpClient],
 })
 export class AppComponent {
     currentRoute: string = ""; // Uchovává název aktuální cesty (route) pro aplikaci třídy pozadí
@@ -46,6 +49,8 @@ export class AppComponent {
             this.currentRoute = "map-background"; // Pokud cesta obsahuje "map", nastaví třídu pro pozadí mapy
         } else if (url.includes("logViewer")) {
             this.currentRoute = "log-viewer-background"; // Pokud cesta obsahuje "logViewer", nastaví třídu pro pozadí log vieweru
+        }  else if (url.includes("guide")){
+            this.currentRoute = "guide-background";
         } else {
             this.currentRoute = "about-background"; // Pro ostatní cesty nastaví třídu pro pozadí sekce "O nás"
         }

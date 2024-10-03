@@ -15,7 +15,7 @@ export class MapdataService {
     private selectedObjectSource = new Subject<any>();
     // Exponujeme Observable, na který mohou ostatní komponenty naslouchat
     /**
-     * Když v nějaké části kódu dojde ke změně dat (např. zde při kliknutí na bod na mapě), Subject tuto změnu zaznamená a 
+     * Když v nějaké části kódu dojde ke změně dat (např. zde při kliknutí na bod na mapě), Subject tuto změnu zaznamená a
      * informuje všechny komponenty nebo služby, které "naslouchají" na tento Observable (pomocí .subscribe()).
      */
     selectedObject$ = this.selectedObjectSource.asObservable();
@@ -29,7 +29,6 @@ export class MapdataService {
         // Pokud již mapa existuje, bude odtraněna a inicializována znovu
         if (this.map) {
             this.map.remove();
-            this.map = null;
         }
 
         // Vytvoření nové mapy
@@ -74,8 +73,15 @@ export class MapdataService {
 
     // Přizpůsobení zobrazení mapy tak, aby byly vidět všechny body
     fitToBounds(): void {
-        if (this.pointsBounds && this.map) {
-            this.map.fitBounds(this.pointsBounds);
+        if (
+            this.pointsBounds &&
+            this.pointsBounds.isValid() &&
+            this.pointsBounds.getNorthEast() !==
+                this.pointsBounds.getSouthWest()
+        ) {
+            this.map?.fitBounds(this.pointsBounds);
+        } else {
+            console.warn("Bounds are empty or invalid.");
         }
     }
 
@@ -113,13 +119,17 @@ export class MapdataService {
         this.selectedObjectSource.next(associatedData);
 
         // Zobrazení bubliny s informacemi o bodu na mapě, na mapě
-        const data = type === "BTS" ? associatedData.BTS : associatedData.PD;
-        const info =
-            type === "BTS"
-                ? `Informace o BTS<br>Cell ID: ${data.cell_id}<br>Zem. šířka: ${data.lat}<br>Zem. délka: ${data.lon}<br>Čas: ${data.measured_at}<br>Oblast:${data.lac}<br>Vlastník: ${data.mnc}`
-                : `Informace o mobilním telefonu<br>Zem. šířka: ${data.lat}<br>Zem. délka: ${data.lon}<br>Čas: ${data.time}`;
+        if (associatedData) {
+            const data =
+                type === "BTS" ? associatedData.BTS : associatedData.PD;
 
-        marker.bindPopup(info, { closeButton: true }).openPopup(); // bublina s detaily
+            const info =
+                type === "BTS"
+                    ? `Informace o BTS<br>Cell ID: ${data.cell_id}<br>Zem. šířka: ${data.lat}<br>Zem. délka: ${data.lon}<br>Čas: ${data.measured_at}<br>Oblast:${data.lac}<br>Vlastník: ${data.mnc}`
+                    : `Informace o mobilním telefonu<br>Zem. šířka: ${data.lat}<br>Zem. délka: ${data.lon}<br>Čas: ${data.time}`;
+
+            marker.bindPopup(info, { closeButton: true }).openPopup(); // bublina s detaily
+        }
     }
 
     // Resetování vybraného bodu na původní styl

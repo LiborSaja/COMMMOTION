@@ -14,12 +14,14 @@ export class ImportMapComponent implements OnInit {
 
     // Lifecycle hook, který se spustí při inicializaci komponenty
     ngOnInit(): void {
-        // setTimeout je použito k tomu, aby se inicializace mapy provedla až po vykreslení DOM
         setTimeout(() => {
             console.log("Initializing map...");
 
-            // Kontrola, zda mapa už není inicializována, aby nebyla inicializována znovu
-            if (!this.map) {
+            // Zkontrolujte, zda už mapa neexistuje, pokud ano, nechte ji jak je
+            const mapContainer = document.getElementById("map");
+
+            // Kontrola, zda není mapa již inicializována
+            if (mapContainer && !mapContainer.hasChildNodes()) {
                 // Inicializace mapy s výchozím pohledem na souřadnice Ostravy a zoomem 12
                 this.map = L.map("map").setView([49.824473, 18.256109], 12);
 
@@ -27,13 +29,13 @@ export class ImportMapComponent implements OnInit {
                 L.tileLayer(
                     "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                     {
-                        attribution: "&copy; OpenStreetMap contributors", // Zdroj mapových dat
+                        attribution: "&copy; OpenStreetMap contributors",
                     }
                 ).addTo(this.map);
 
-                // Zajistí, že mapa bude správně vykreslena (vyřeší problémy s velikostí při dynamickém načítání)
+                // Zajistí, že mapa bude správně vykreslena
                 this.map.invalidateSize();
             }
-        }, 0); // Zpoždění 0ms slouží k tomu, aby se úkol zařadil do fronty a počkal, až se DOM vykreslí
+        }, 0); // Zpoždění 0ms, aby byl DOM vykreslen před inicializací
     }
 }

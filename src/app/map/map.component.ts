@@ -6,6 +6,10 @@ import { LoglistComponent } from "./loglist/loglist.component";
 import { OneObjectViewerComponent } from "./one-object-viewer/one-object-viewer.component";
 import { MapdataService } from "../services/mapdata.service";
 import { LogsdataService } from "../services/logsdata.service";
+import { DblogsService } from "../services/dblogs.service";
+import { FormsModule } from "@angular/forms";
+import { HttpClient } from "@angular/common/http";
+import { CommonModule } from "@angular/common";
 
 @Component({
     selector: "app-map",
@@ -16,17 +20,24 @@ import { LogsdataService } from "../services/logsdata.service";
         RouterModule,
         LoglistComponent,
         OneObjectViewerComponent,
+        FormsModule,
+        CommonModule,
     ],
     templateUrl: "./map.component.html",
     styleUrl: "./map.component.css",
+    providers: [HttpClient],
 })
 export class MapComponent implements OnInit {
     showBTS: boolean = true; //Pro checkboxy - zobrazení bodů na mapě ano/ne
     showPD: boolean = true;
+    logName: string = "";
+    isInvalid: boolean = false;
+    validationMessage: string = "";
 
     constructor(
         private mapDataService: MapdataService,
-        private logsDataService: LogsdataService
+        private logsDataService: LogsdataService,
+        private dblogsService: DblogsService
     ) {}
 
     // Inicializace komponenty
@@ -37,7 +48,6 @@ export class MapComponent implements OnInit {
             [49.824473, 18.256109],
             12
         );
-
         // Načítání dat z logsdata.service a vykreslení bodů na mapě
         const logs = this.logsDataService.getObjectsArray();
         this.renderLogs(logs);
@@ -60,45 +70,53 @@ export class MapComponent implements OnInit {
         this.renderLogs(this.logsDataService.getObjectsArray()); // Znovu vykreslit body podle stavu
     }
 
-    // Vykreslení logů na mapě na základě aktuálního stavu checkboxů
     renderLogs(logs: any[]): void {
         this.mapDataService.clearPoints(); // Vyčištění mapy před novým vykreslením bodů
 
         logs.forEach((log) => {
             const { BTS, PD } = log;
 
-            // Přidání BTS bodu na mapu, pokud je checkbox aktivní
-            if (this.showBTS) {
+            // Zkontrolujte, zda jsou platné souřadnice BTS a přidání BTS bodu na mapu
+            if (this.showBTS && BTS?.lat && BTS?.lon) {
                 const btsMarker = this.mapDataService.addPoint(
                     BTS.lat,
                     BTS.lon,
                     "BTS"
                 );
-                // K markeru BTS přidáno data BTS i PD, aby při kliknutí byly zobrazeny data obou
-                (btsMarker as any).associatedData = { BTS, PD };
-                // Při kliknutí na BTS marker dojde ke zvýraznění a zobrazení informací
-                btsMarker.on("click", () =>
-                    this.mapDataService.highlightPoint(btsMarker)
-                );
+
+                if (btsMarker) {
+                    (btsMarker as any).associatedData = { BTS, PD };
+                    btsMarker.on("click", () =>
+                        this.mapDataService.highlightPoint(btsMarker)
+                    );
+                }
             }
 
-            // Přidání PD bodu na mapu, pokud je checkbox aktivní
-            if (this.showPD) {
+            // Zkontrolujte, zda jsou platné souřadnice PD a přidání PD bodu na mapu
+            if (this.showPD && PD?.lat && PD?.lon) {
                 const pdMarker = this.mapDataService.addPoint(
                     PD.lat,
                     PD.lon,
                     "PD"
                 );
-                // K markeru PD přidáno data BTS i PD, aby při kliknutí byly zobrazeny data obou
-                (pdMarker as any).associatedData = { BTS, PD };
-                // Při kliknutí na PD marker dojde ke zvýraznění a zobrazení informací
-                pdMarker.on("click", () =>
-                    this.mapDataService.highlightPoint(pdMarker)
-                );
+
+                if (pdMarker) {
+                    (pdMarker as any).associatedData = { BTS, PD };
+                    pdMarker.on("click", () =>
+                        this.mapDataService.highlightPoint(pdMarker)
+                    );
+                }
             }
 
-            // Přidání přímky mezi BTS a PD, pokud jsou oba body viditelné
-            if (this.showBTS && this.showPD) {
+            // Přidání přímky mezi BTS a PD, pokud jsou oba body viditelné a platné
+            if (
+                this.showBTS &&
+                this.showPD &&
+                BTS?.lat &&
+                BTS?.lon &&
+                PD?.lat &&
+                PD?.lon
+            ) {
                 this.mapDataService.addConnectionLine(
                     BTS.lat,
                     BTS.lon,
@@ -107,7 +125,8 @@ export class MapComponent implements OnInit {
                 );
             }
         });
-        // Přizpůsobení mapy všem bodům
+
+        // Přizpůsobení mapy, pokud jsou platné body
         this.mapDataService.fitToBounds();
     }
 
@@ -141,4 +160,113 @@ export class MapComponent implements OnInit {
             }
         }
     }
+
+    // Uložit aktuálně vytvořený log do databáze
+    saveLogToDatabase(): void {
+        const logsArray = this.logsDataService.getObjectsArray();
+
+        // Ověření, zda je zadán název logu
+        if (!this.logName || this.logName.trim() === "") {
+            this.isInvalid = true;
+            this.validationMessage = "Název logu je povinný.";
+            return;
+        }
+
+        // Ověření, zda bylo něco importováno
+        if (!logsArray || logsArray.length === 0) {
+            this.isInvalid = true;
+            this.validationMessage =
+                "Nelze uložit log bez importovaných dat. Nejprve importujte soubory.";
+            return;
+        }
+
+        // Pokud jsou všechna data v pořádku, resetujeme chybový stav
+        this.isInvalid = false;
+        this.validationMessage = ""; // Vymazání zprávy o chybě
+
+        const logEntry = {
+            name: this.logName,
+            records: logsArray.map((log) => ({
+                CellId: log.BTS.cell_id,
+                Lac: log.BTS.lac,
+                BtsLat: log.BTS.lat,
+                BtsLon: log.BTS.lon,
+                MeasuredAt: log.BTS.measured_at,
+                Mnc: log.BTS.mnc,
+                PdLat: log.PD.lat,
+                PdLon: log.PD.lon,
+                PdTime: log.PD.time,
+            })),
+        };
+
+        console.log("Sending log entry:", logEntry);
+
+        this.dblogsService.createLog(logEntry).subscribe({
+            next: (response) =>
+                console.log("Log byl úspěšně uložen!", response),
+            error: (error) =>
+                console.error("Došlo k chybě při ukládání logu:", error),
+        });
+    }
+
+    // Funkce pro načtení a zobrazení logu na mapě z databáze
+    displayLog(logData: any): void {
+        this.mapDataService.clearPoints(); // Vyčistit mapu
+
+        logData.records.forEach((logRecord: any) => {
+            // Přidáme BTS bod na mapu, pokud je checkbox aktivní
+            let btsMarker: any;
+            if (this.showBTS && logRecord.btsLat && logRecord.btsLon) {
+                btsMarker = this.mapDataService.addPoint(
+                    logRecord.btsLat,
+                    logRecord.btsLon,
+                    "BTS"
+                );
+                (btsMarker as any).associatedData = logRecord; // Přidáme data BTS i PD
+                btsMarker.on("click", () =>
+                    this.mapDataService.highlightPoint(btsMarker)
+                );
+            }
+
+            // Přidáme PD bod na mapu, pokud je checkbox aktivní
+            let pdMarker: any;
+            if (this.showPD && logRecord.pdLat && logRecord.pdLon) {
+                pdMarker = this.mapDataService.addPoint(
+                    logRecord.pdLat,
+                    logRecord.pdLon,
+                    "PD"
+                );
+                (pdMarker as any).associatedData = logRecord; // Přidáme data BTS i PD
+                pdMarker.on("click", () =>
+                    this.mapDataService.highlightPoint(pdMarker)
+                );
+            }
+
+            // Vykreslení černé čáry mezi BTS a PD, pokud jsou oba body viditelné
+            if (
+                this.showBTS &&
+                this.showPD &&
+                logRecord.btsLat &&
+                logRecord.btsLon &&
+                logRecord.pdLat &&
+                logRecord.pdLon
+            ) {
+                this.mapDataService.addConnectionLine(
+                    logRecord.btsLat,
+                    logRecord.btsLon,
+                    logRecord.pdLat,
+                    logRecord.pdLon
+                );
+            }
+        });
+
+        // Přizpůsobení mapy, pokud existují body
+        this.mapDataService.fitToBounds();
+    }
+
+    displayImportedLog(): void {
+        const importedLogs = this.logsDataService.getObjectsArray(); // Předpokládám, že už máte data načtená
+        this.renderLogs(importedLogs); // Zobrazí body na mapě
+    }
+    
 }

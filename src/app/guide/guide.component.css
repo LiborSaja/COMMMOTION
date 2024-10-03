@@ -1,5 +1,21 @@
 .mybg {
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.85);
     padding: 20px;
     border-radius: 10px;
 }
+
+.my-img-opt {
+    max-width: 55%; 
+    height: auto;   
+    margin: 0 auto;
+}
+
+.carousel-caption-below {
+    text-align: center;
+    padding: 15px 0;
+    color: #fff; 
+}
+
+
+
+

@@ -7,15 +7,19 @@
 }
 
 .about-background {
-    background-color: #0174be;
+    background-image: url("/mmm3.jpg");
 }
 
 .map-background {
-    background-color: #0174be;
+    background-image: url("/mmm3.jpg");
 }
 
 .log-viewer-background {
-    background-color: #0174be;
+    background-image: url("/mmm3.jpg");
+}
+
+.guide-background {
+    background-image: url("/mmm3.jpg");
 }
 
 /* Zabrání horizontálnímu posunu sekcí */
