@@ -38,4 +38,18 @@ export class LoglistComponent implements OnInit {
             error: (error) => console.error("Došlo k chybě při načítání logu:", error)
         });
     }
+
+    deleteLog(logId: number): void {
+        if (confirm("Opravdu chcete tento záznam smazat?")) {
+            this.dbLogsService.deleteLog(logId).subscribe({
+              next: () => {
+                console.log("Log byl úspěšně smazán!");
+                this.ngOnInit(); // Načte logy znovu po smazání
+              },
+              error: (error) => {
+                console.error("Došlo k chybě při mazání logu:", error);
+              },
+            });
+          }
+    }
 }

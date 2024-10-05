@@ -184,6 +184,7 @@ export class MapComponent implements OnInit {
         this.isInvalid = false;
         this.validationMessage = ""; // Vymazání zprávy o chybě
 
+        //mapování objektu logEntry a příprava na odeslání do backendu
         const logEntry = {
             name: this.logName,
             records: logsArray.map((log) => ({
@@ -201,6 +202,7 @@ export class MapComponent implements OnInit {
 
         console.log("Sending log entry:", logEntry);
 
+        //odeslání do backendu
         this.dblogsService.createLog(logEntry).subscribe({
             next: (response) =>
                 console.log("Log byl úspěšně uložen!", response),
@@ -264,9 +266,9 @@ export class MapComponent implements OnInit {
         this.mapDataService.fitToBounds();
     }
 
+    //zobrazení aktuálně vytvořeného logu z importovaných souborů
     displayImportedLog(): void {
-        const importedLogs = this.logsDataService.getObjectsArray(); // Předpokládám, že už máte data načtená
-        this.renderLogs(importedLogs); // Zobrazí body na mapě
+        const importedLogs = this.logsDataService.getObjectsArray();
+        this.renderLogs(importedLogs);
     }
-    
 }

@@ -2,9 +2,9 @@
     <h6>Seznam logů uložených v databázi:</h6>
     <div class="list-group overflow-auto list">
       <li *ngFor="let log of logs" class="list-group-item list-group-item-action">
-        {{ log.name }} <!-- Zobrazení názvu logu -->
-        <!-- Tlačítko pro zobrazení konkrétního logu -->
+        {{ log.name }} 
         <button class="btn btn-primary float-end" (click)="showLog(log.id)">Zobrazit</button>
+        <button class="btn btn-danger float-end me-2" (click)="deleteLog(log.id)">Smazat</button>
       </li>
     </div>
   </div>

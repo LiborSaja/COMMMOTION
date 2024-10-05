@@ -6,8 +6,9 @@ import { Observable } from "rxjs";
     providedIn: "root",
 })
 export class DblogsService {
-    private apiUrl = "https://localhost:7247/api/log"; // URL k backendu
+    private apiUrl = "https://localhost:7247/api/log"; // URL k propojení s backendem
 
+    //HttpClient - umožňuje odesílat HTTP požadavky
     constructor(private http: HttpClient) {}
 
     // Metoda pro uložení logu
@@ -23,5 +24,10 @@ export class DblogsService {
     // Přidání metody pro získání konkrétního logu podle jeho ID
     getLogById(id: number): Observable<any> {
         return this.http.get<any>(`${this.apiUrl}/${id}`);
+    }
+
+    // Metoda pro smazání logu
+    deleteLog(logId: number): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${logId}`);
     }
 }

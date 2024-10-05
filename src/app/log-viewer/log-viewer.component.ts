@@ -21,7 +21,7 @@ export class LogViewerComponent {
     ) {}
 
     //Handler pro výběr souboru (GPX nebo CSV)
-    //Ukládá vybraný soubor do proměnných `gpxFile` nebo `csvFile`
+    //Ukládá vybraný soubor do proměnných gpxFile nebo csvFile
     onFileSelected(event: Event, fileType: "gpx" | "csv"): void {
         const input = event.target as HTMLInputElement;
         const file = input.files?.[0] || null;
@@ -68,7 +68,7 @@ export class LogViewerComponent {
 
     //Metoda pro načtení obsahu souboru
     //Používá FileReader k načtení obsahu jako text
-    //Vrací Promise s obsahem souboru (string | ArrayBuffer)
+    //ArrayBuffer - asi? efektivnější převod souborů do binárního kódu?
     loadFile(file: File): Promise<string | ArrayBuffer | null> {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();

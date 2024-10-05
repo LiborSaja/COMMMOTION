@@ -97,9 +97,9 @@ export class LogsdataService {
             .filter((item) => item !== null); // Filtrujeme neplatné řádky
     }
 
-    // Pomocná funkce pro parsování hodnoty z řádku CSV souboru
+    // Pomocná funkce pro parsování hodnoty z řádku CSV souboru, kdy některé vlastnosti mohou být prázdné
     parseValue(value: string, parseFn: (val: string) => any): any {
-        return value ? parseFn(value) : null; // Pokud hodnota existuje, použije se parsovací funkce
+        return value ? parseFn(value) : null; // Pokud hodnota existuje, použije se parsovací funkce, jinak nic
     }
 
     // Funkce pro nalezení nejbližší BTS záznamu na základě času

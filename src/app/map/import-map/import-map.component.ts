@@ -17,7 +17,7 @@ export class ImportMapComponent implements OnInit {
         setTimeout(() => {
             console.log("Initializing map...");
 
-            // Zkontrolujte, zda už mapa neexistuje, pokud ano, nechte ji jak je
+            // kontrola, zda už mapa existuje
             const mapContainer = document.getElementById("map");
 
             // Kontrola, zda není mapa již inicializována
