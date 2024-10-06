@@ -2,22 +2,45 @@
     <div>
         <p>Mobilní telefon:</p>
         <ul>
-            <li>Zem. šířka: {{ selectedObject.PD.lat }}</li>
-            <li>Zem. délka: {{ selectedObject.PD.lon }}</li>
-            <li>Čas: {{ selectedObject.PD.time }}</li>
+            <ng-container *ngIf="selectedObject?.PD; else dbPDTemplate">
+                <li>Zem. šířka: {{ selectedObject.PD.lat }}</li>
+                <li>Zem. délka: {{ selectedObject.PD.lon }}</li>
+                <li>Čas: {{ selectedObject.PD.time }}</li>
+            </ng-container>
+
+            <ng-template #dbPDTemplate>
+                <li>Zem. šířka: {{ selectedObject.pdLat }}</li>
+                <li>Zem. délka: {{ selectedObject.pdLon }}</li>
+                <li>Čas: {{ selectedObject.pdTime }}</li>
+            </ng-template>
         </ul>
         <p>Připojeno k BTS:</p>
+        <!-- Kontrola, zda jsou BTS data ve formátu importu (kontrola existence 'BTS' klíče) -->
         <ul>
-            <li>CID: {{ selectedObject.BTS.cell_id }}</li>
-            <li>Zem. šířka: {{ selectedObject.BTS.lat }}</li>
-            <li>Zem. délka: {{ selectedObject.BTS.lon }}</li>
-            <li>Čas: {{ selectedObject.BTS.measured_at }}</li>
-            <li>Oblast: {{ selectedObject.BTS.lac }}</li>
-            <li>Vlastník: {{ selectedObject.BTS.mnc}}</li>
+            <ng-container *ngIf="selectedObject?.BTS; else dbTemplate">
+                <li>CID: {{ selectedObject.BTS.cell_id }}</li>
+                <li>Zem. šířka: {{ selectedObject.BTS.lat }}</li>
+                <li>Zem. délka: {{ selectedObject.BTS.lon }}</li>
+                <li>Čas: {{ selectedObject.BTS.measured_at }}</li>
+                <li>Oblast: {{ selectedObject.BTS.lac }}</li>
+                <li>Vlastník: {{ selectedObject.BTS.mnc }}</li>
+            </ng-container>
+
+            <!-- Kontrola, zda jsou PD data ve formátu databáze (pokud není 'BTS', použijeme tento template) -->
+            <ng-template #dbTemplate>
+                <li>CID: {{ selectedObject.cellId }}</li>
+                <li>Zem. šířka: {{ selectedObject.btsLat }}</li>
+                <li>Zem. délka: {{ selectedObject.btsLon }}</li>
+                <li>Čas: {{ selectedObject.measuredAt }}</li>
+                <li>Oblast: {{ selectedObject.lac }}</li>
+                <li>Vlastník: {{ selectedObject.mnc }}</li>
+            </ng-template>
         </ul>
     </div>
     <div class="justify-content-center">
-        <button class="btn btn-outline-success w-100 my-3" (click)="scrollToAllObjectsViewer()">
+        <button
+            class="btn btn-outline-success w-100 my-3"
+            (click)="scrollToAllObjectsViewer()">
             Přejít na přehled všech objektů
         </button>
     </div>
