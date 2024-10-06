@@ -1,10 +1,12 @@
 import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
 
 @Injectable({
     providedIn: "root",
 })
 export class LogsdataService {
     private objectsArray: any[] = []; // Pole, které bude obsahovat kombinované objekty z GPX a CSV dat
+    private objectsArrayUpdated = new Subject<any[]>();
 
     // Funkce pro vytvoření nového pole objektů z GPX a CSV dat
     createObjectsArray(
@@ -124,5 +126,30 @@ export class LogsdataService {
             }
             return closest;
         }, btsData[0]); // Začneme s prvním BTS záznamem jako výchozím
+    }
+
+    // Funkce pro aktualizaci objektů z databáze
+    updateObjectsFromDatabase(records: any[]): void {
+        this.objectsArray = records.map((record) => ({
+            BTS: {
+                cell_id: record.cellId,
+                lat: record.btsLat,
+                lon: record.btsLon,
+                measured_at: record.measuredAt,
+                lac: record.lac,
+                mnc: record.mnc,
+            },
+            PD: {
+                lat: record.pdLat,
+                lon: record.pdLon,
+                time: record.pdTime,
+            },
+        }));
+        this.objectsArrayUpdated.next(this.objectsArray); // Emituj aktualizovaná data
+    }
+    
+    // Observable pro získání aktuálního pole objektů
+    getObjectsArrayUpdateListener(): Observable<any[]> {
+        return this.objectsArrayUpdated.asObservable();
     }
 }

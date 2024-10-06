@@ -5,13 +5,13 @@
             <ng-container *ngIf="selectedObject?.PD; else dbPDTemplate">
                 <li>Zem. šířka: {{ selectedObject.PD.lat }}</li>
                 <li>Zem. délka: {{ selectedObject.PD.lon }}</li>
-                <li>Čas: {{ selectedObject.PD.time }}</li>
+                <li>Čas: {{ selectedObject.PD.time | date : "fullDate" }}</li>
             </ng-container>
 
             <ng-template #dbPDTemplate>
                 <li>Zem. šířka: {{ selectedObject.pdLat }}</li>
                 <li>Zem. délka: {{ selectedObject.pdLon }}</li>
-                <li>Čas: {{ selectedObject.pdTime }}</li>
+                <li>Čas: {{ selectedObject.pdTime | date : "fullDate" }}</li>
             </ng-template>
         </ul>
         <p>Připojeno k BTS:</p>
@@ -21,7 +21,10 @@
                 <li>CID: {{ selectedObject.BTS.cell_id }}</li>
                 <li>Zem. šířka: {{ selectedObject.BTS.lat }}</li>
                 <li>Zem. délka: {{ selectedObject.BTS.lon }}</li>
-                <li>Čas: {{ selectedObject.BTS.measured_at }}</li>
+                <li>
+                    Čas:
+                    {{ selectedObject.BTS.measured_at | date : "fullDate" }}
+                </li>
                 <li>Oblast: {{ selectedObject.BTS.lac }}</li>
                 <li>Vlastník: {{ selectedObject.BTS.mnc }}</li>
             </ng-container>
@@ -31,7 +34,9 @@
                 <li>CID: {{ selectedObject.cellId }}</li>
                 <li>Zem. šířka: {{ selectedObject.btsLat }}</li>
                 <li>Zem. délka: {{ selectedObject.btsLon }}</li>
-                <li>Čas: {{ selectedObject.measuredAt }}</li>
+                <li>
+                    Čas: {{ selectedObject.measuredAt | date : "fullDate" }}
+                </li>
                 <li>Oblast: {{ selectedObject.lac }}</li>
                 <li>Vlastník: {{ selectedObject.mnc }}</li>
             </ng-template>

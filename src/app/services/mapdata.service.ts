@@ -121,10 +121,12 @@ export class MapdataService {
         // Zobrazení bubliny s informacemi o bodu na mapě, na mapě
         if (associatedData) {
             let data;
+            let formattedTime = "";
 
             // Zkontrolujeme, jestli data obsahují klíče pro BTS a PD (při importu)
             if (associatedData.BTS && associatedData.PD) {
                 data = type === "BTS" ? associatedData.BTS : associatedData.PD;
+                formattedTime = type === "BTS" ? data.measured_at : data.time;
             } else {
                 // Pokud se jedná o data načtená z databáze, použijeme odlišné názvy klíčů
                 data =
@@ -142,14 +144,26 @@ export class MapdataService {
                               lon: associatedData.pdLon,
                               time: associatedData.pdTime,
                           };
+
+                // Formátování času pro data z databáze
+                formattedTime = new Date(
+                    type === "BTS" ? data.measured_at : data.time
+                ).toLocaleString("cs-CZ", {
+                    weekday: "short",
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                });
             }
 
             // Vytvoříme obsah bubliny
             const info =
                 type === "BTS"
-                    ? `Informace o BTS<br>Cell ID: ${data.cell_id}<br>Zem. šířka: ${data.lat}<br>Zem. délka: ${data.lon}<br>Čas: ${data.measured_at}<br>Oblast:${data.lac}<br>Vlastník: ${data.mnc}`
-                    : `Informace o mobilním telefonu<br>Zem. šířka: ${data.lat}<br>Zem. délka: ${data.lon}<br>Čas: ${data.time}`;
-
+                    ? `Informace o BTS<br>Cell ID: ${data.cell_id}<br>Zem. šířka: ${data.lat}<br>Zem. délka: ${data.lon}<br>Čas: ${formattedTime}<br>Oblast: ${data.lac}<br>Vlastník: ${data.mnc}`
+                    : `Informace o mobilním telefonu<br>Zem. šířka: ${data.lat}<br>Zem. délka: ${data.lon}<br>Čas: ${formattedTime}`;
             // Zobrazíme bublinu
             marker.bindPopup(info, { closeButton: true }).openPopup();
         } else {
