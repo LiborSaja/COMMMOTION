@@ -133,26 +133,7 @@ export class MapdataService {
             );
         }
 
-        // Emitování vybraného objektu (BTS a PD data) pro naslouchající komponenty
-        if (associatedData) {
-            const data = {
-                BTS: {
-                    lat: associatedData.btsLat,
-                    lon: associatedData.btsLon,
-                    cell_id: associatedData.cellId,
-                    measured_at: associatedData.measuredAt,
-                    lac: associatedData.lac,
-                    mnc: associatedData.mnc,
-                },
-                PD: {
-                    lat: associatedData.pdLat,
-                    lon: associatedData.pdLon,
-                    time: associatedData.pdTime,
-                },
-            };
-
-            this.selectedObjectSource.next(data);
-        }
+        
     }
 
     // Resetování vybraného bodu na původní styl
