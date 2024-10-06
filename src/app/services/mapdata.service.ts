@@ -120,15 +120,43 @@ export class MapdataService {
 
         // Zobrazení bubliny s informacemi o bodu na mapě, na mapě
         if (associatedData) {
-            const data =
-                type === "BTS" ? associatedData.BTS : associatedData.PD;
+            let data;
 
+            // Zkontrolujeme, jestli data obsahují klíče pro BTS a PD (při importu)
+            if (associatedData.BTS && associatedData.PD) {
+                data = type === "BTS" ? associatedData.BTS : associatedData.PD;
+            } else {
+                // Pokud se jedná o data načtená z databáze, použijeme odlišné názvy klíčů
+                data =
+                    type === "BTS"
+                        ? {
+                              cell_id: associatedData.cellId,
+                              lat: associatedData.btsLat,
+                              lon: associatedData.btsLon,
+                              measured_at: associatedData.measuredAt,
+                              lac: associatedData.lac,
+                              mnc: associatedData.mnc,
+                          }
+                        : {
+                              lat: associatedData.pdLat,
+                              lon: associatedData.pdLon,
+                              time: associatedData.pdTime,
+                          };
+            }
+
+            // Vytvoříme obsah bubliny
             const info =
                 type === "BTS"
                     ? `Informace o BTS<br>Cell ID: ${data.cell_id}<br>Zem. šířka: ${data.lat}<br>Zem. délka: ${data.lon}<br>Čas: ${data.measured_at}<br>Oblast:${data.lac}<br>Vlastník: ${data.mnc}`
                     : `Informace o mobilním telefonu<br>Zem. šířka: ${data.lat}<br>Zem. délka: ${data.lon}<br>Čas: ${data.time}`;
 
-            marker.bindPopup(info, { closeButton: true }).openPopup(); // bublina s detaily
+            // Zobrazíme bublinu
+            marker.bindPopup(info, { closeButton: true }).openPopup();
+        } else {
+            console.warn(
+                "Data pro popup nejsou dostupná nebo neplatná",
+                associatedData
+            );
         }
     }
 
