@@ -120,20 +120,16 @@ export class MapdataService {
 
         // Zobrazení bubliny s informacemi o bodu na mapě, na mapě
         if (associatedData) {
+            const data =
+                type === "BTS" ? associatedData.BTS : associatedData.PD;
+
             const info =
                 type === "BTS"
-                    ? `Informace o BTS<br>Cell ID: ${associatedData.cellId}<br>Zem. šířka: ${associatedData.btsLat}<br>Zem. délka: ${associatedData.btsLon}<br>Čas: ${associatedData.measuredAt}<br>Oblast:${associatedData.lac}<br>Vlastník: ${associatedData.mnc}`
-                    : `Informace o mobilním telefonu<br>Zem. šířka: ${associatedData.pdLat}<br>Zem. délka: ${associatedData.pdLon}<br>Čas: ${associatedData.pdTime}`;
+                    ? `Informace o BTS<br>Cell ID: ${data.cell_id}<br>Zem. šířka: ${data.lat}<br>Zem. délka: ${data.lon}<br>Čas: ${data.measured_at}<br>Oblast:${data.lac}<br>Vlastník: ${data.mnc}`
+                    : `Informace o mobilním telefonu<br>Zem. šířka: ${data.lat}<br>Zem. délka: ${data.lon}<br>Čas: ${data.time}`;
 
             marker.bindPopup(info, { closeButton: true }).openPopup(); // bublina s detaily
-        } else {
-            console.warn(
-                "Data pro popup nejsou dostupná nebo neplatná",
-                associatedData
-            );
         }
-
-        
     }
 
     // Resetování vybraného bodu na původní styl
