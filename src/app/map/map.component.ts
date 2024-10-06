@@ -33,6 +33,7 @@ export class MapComponent implements OnInit {
     logName: string = "";
     isInvalid: boolean = false;
     validationMessage: string = "";
+    successMessage: string = "";
 
     constructor(
         private mapDataService: MapdataService,
@@ -184,7 +185,7 @@ export class MapComponent implements OnInit {
         this.isInvalid = false;
         this.validationMessage = ""; // Vymazání zprávy o chybě
 
-        //mapování objektu logEntry a příprava na odeslání do backendu
+        // Mapování objektu logEntry a příprava na odeslání do backendu
         const logEntry = {
             name: this.logName,
             records: logsArray.map((log) => ({
@@ -200,14 +201,21 @@ export class MapComponent implements OnInit {
             })),
         };
 
-        console.log("Sending log entry:", logEntry);
-
-        //odeslání do backendu
+        // Odeslání dat do backendu
         this.dblogsService.createLog(logEntry).subscribe({
-            next: (response) =>
-                console.log("Log byl úspěšně uložen!", response),
-            error: (error) =>
-                console.error("Došlo k chybě při ukládání logu:", error),
+            next: (response) => {
+                // Zobrazení úspěšné zprávy pro uživatele
+                this.successMessage = "Log byl úspěšně uložen!";
+                // Resetování formuláře
+                this.logName = "";
+                // Automatické skrytí zprávy po 3 vteřinách
+                setTimeout(() => {
+                    this.successMessage = "";
+                }, 3000);
+            },
+            error: (error) => {
+                console.error("Došlo k chybě při ukládání logu:", error);
+            },
         });
     }
 

@@ -73,7 +73,8 @@
                         </h6>
                         <div class="pt-3">
                             <button
-                                class="btn btn-outline-primary mb-2 d-block w-100" (click)="displayImportedLog()">
+                                class="btn btn-outline-primary mb-2 d-block w-100"
+                                (click)="displayImportedLog()">
                                 Zobrazit log na mapě
                             </button>
                             <button
@@ -93,6 +94,11 @@
                                 placeholder="Zadejte název" />
                             <div *ngIf="isInvalid" class="invalid-feedback m-1">
                                 {{ validationMessage }}
+                            </div>
+                            <div
+                                *ngIf="successMessage"
+                                class="alert alert-success text-center">
+                                {{ successMessage }}
                             </div>
                             <button
                                 class="btn btn-outline-success mb-2 d-block w-100"
