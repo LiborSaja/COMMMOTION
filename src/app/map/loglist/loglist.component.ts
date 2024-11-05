@@ -12,6 +12,7 @@ import { CommonModule } from "@angular/common";
 })
 export class LoglistComponent implements OnInit {
     logs: any[] = []; // Uchová všechny načtené logy z databáze
+    errorMessage: string | null = null;
 
     // Dekorátor pro emisi události do MapComponent
     @Output() logSelected = new EventEmitter<any>();
@@ -26,9 +27,12 @@ export class LoglistComponent implements OnInit {
         this.dbLogsService.getLogs().subscribe({
             next: (data) => {
                 this.logs = data;
+                this.errorMessage = null;
             },
             error: (error) => {
                 console.error("Chyba při načítání logů z databáze", error);
+                this.errorMessage =
+                    "K této aplikaci není databáze záměrně připojena.";
             },
         });
     }

@@ -13,7 +13,6 @@ import {
     RouterModule,
 } from "@angular/router";
 
-
 @Component({
     selector: "app-root",
     standalone: true,
@@ -43,16 +42,16 @@ export class AppComponent {
         });
     }
 
-    // Aktualizuje třídu pozadí aplikace na základě aktuální cesty
     updateBackgroundClass(url: string): void {
+        const root = document.documentElement;
         if (url.includes("map")) {
-            this.currentRoute = "map-background"; // Pokud cesta obsahuje "map", nastaví třídu pro pozadí mapy
+            root.style.setProperty("--background-image", "url('mmm3.jpg')");
         } else if (url.includes("logViewer")) {
-            this.currentRoute = "log-viewer-background"; // Pokud cesta obsahuje "logViewer", nastaví třídu pro pozadí log vieweru
-        }  else if (url.includes("guide")){
-            this.currentRoute = "guide-background";
+            root.style.setProperty("--background-image", "url('mmm3.jpg')");
+        } else if (url.includes("guide")) {
+            root.style.setProperty("--background-image", "url('mmm3.jpg')");
         } else {
-            this.currentRoute = "about-background"; // Pro ostatní cesty nastaví třídu pro pozadí sekce "O nás"
+            root.style.setProperty("--background-image", "url('mmm3.jpg')");
         }
     }
 

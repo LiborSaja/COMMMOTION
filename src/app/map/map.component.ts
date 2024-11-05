@@ -215,6 +215,17 @@ export class MapComponent implements OnInit {
             },
             error: (error) => {
                 console.error("Došlo k chybě při ukládání logu:", error);
+
+                // pokud nebude databáze připojena
+                if (error.status === 0) {
+                    // status 0 značí často nedostupný backend nebo síťovou chybu
+                    this.validationMessage =
+                        "Databáze není k této aplikaci připojena, ukládání není možné.";
+                } else {
+                    this.validationMessage =
+                        "Došlo k chybě při ukládání logu. Zkuste to prosím znovu.";
+                }
+                this.isInvalid = true;
             },
         });
     }

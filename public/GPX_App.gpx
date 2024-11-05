@@ -1,0 +1,300 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<gpx version="1.1" xmlns="http://www.topografix.com/GPX/1/1" xmlns:geotracker="http://ilyabogdanovich.com/gpx/extensions/geotracker" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" creator="Geo Tracker 5.3.4.3912 for Android by Ilya Bogdanovich">
+  <metadata>
+    <name>16. 9. 2024 14:24:04</name>
+    <author>
+      <name>Recorded in Geo Tracker for Android from Ilya Bogdanovich</name>
+      <link href="https://play.google.com/store/apps/details?id=com.ilyabogdanovich.geotracker" />
+    </author>
+    <link href="https://play.google.com/store/apps/details?id=com.ilyabogdanovich.geotracker" />
+    <time>2024-09-16T12:24:04Z</time>
+  </metadata>
+  <trk>
+    <name>16. 9. 2024 14:24:04</name>
+    <src>Recorded in Geo Tracker for Android from Ilya Bogdanovich</src>
+    <link href="https://play.google.com/store/apps/details?id=com.ilyabogdanovich.geotracker" />
+    <extensions>
+      <geotracker:meta>
+        <length>7414.25</length>
+        <duration>1360365</duration>
+        <creationtime>2024-09-16T12:24:04Z</creationtime>
+        <activity>0</activity>
+      </geotracker:meta>
+    </extensions>
+    <trkseg>
+      <trkpt lat="49.83330333" lon="18.17447167">
+        <ele>533.3</ele>
+        <time>2024-09-16T12:24:33Z</time>
+        <extensions>
+          <geotracker:meta c="0.51" s="2.64" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.8331" lon="18.17487833">
+        <ele>528.2</ele>
+        <time>2024-09-16T12:25:27Z</time>
+        <extensions>
+          <geotracker:meta c="0.13" s="0" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.83324333" lon="18.175205">
+        <ele>529.2</ele>
+        <time>2024-09-16T12:25:54Z</time>
+        <extensions>
+          <geotracker:meta c="6.26" s="0" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.83324333" lon="18.175425">
+        <ele>524.2</ele>
+        <time>2024-09-16T12:26:48Z</time>
+        <extensions>
+          <geotracker:meta c="6.26" s="0" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.83239833" lon="18.17728833">
+        <ele>494.3</ele>
+        <time>2024-09-16T12:27:15Z</time>
+        <extensions>
+          <geotracker:meta c="1.9" s="13.87" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.83099667" lon="18.18214">
+        <ele>429.8</ele>
+        <time>2024-09-16T12:27:42Z</time>
+        <extensions>
+          <geotracker:meta c="1.91" s="14.25" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.83019833" lon="18.18593667">
+        <ele>371.2</ele>
+        <time>2024-09-16T12:28:09Z</time>
+        <extensions>
+          <geotracker:meta c="1.97" s="6.5" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.829545" lon="18.18795333">
+        <ele>309.2</ele>
+        <time>2024-09-16T12:29:03Z</time>
+        <extensions>
+          <geotracker:meta c="1.84" s="0" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82898667" lon="18.18995">
+        <ele>289.4</ele>
+        <time>2024-09-16T12:29:57Z</time>
+        <extensions>
+          <geotracker:meta c="2.01" s="7.98" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82832" lon="18.19252">
+        <ele>281.2</ele>
+        <time>2024-09-16T12:30:24Z</time>
+        <extensions>
+          <geotracker:meta c="2.12" s="0" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82794167" lon="18.19409833">
+        <ele>279.4</ele>
+        <time>2024-09-16T12:30:51Z</time>
+        <extensions>
+          <geotracker:meta c="1.9" s="11.09" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82707333" lon="18.19751667">
+        <ele>276</ele>
+        <time>2024-09-16T12:31:18Z</time>
+        <extensions>
+          <geotracker:meta c="1.94" s="8.06" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82665167" lon="18.199115">
+        <ele>273.1</ele>
+        <time>2024-09-16T12:31:45Z</time>
+        <extensions>
+          <geotracker:meta c="2.07" s="0" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82616167" lon="18.20108167">
+        <ele>270.4</ele>
+        <time>2024-09-16T12:32:12Z</time>
+        <extensions>
+          <geotracker:meta c="1.95" s="16.06" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82484167" lon="18.20673">
+        <ele>271.1</ele>
+        <time>2024-09-16T12:32:39Z</time>
+        <extensions>
+          <geotracker:meta c="1.87" s="14.69" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82409667" lon="18.21119333">
+        <ele>272</ele>
+        <time>2024-09-16T12:33:33Z</time>
+        <extensions>
+          <geotracker:meta c="1.76" s="12.92" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82353667" lon="18.21714833">
+        <ele>271.4</ele>
+        <time>2024-09-16T12:34:00Z</time>
+        <extensions>
+          <geotracker:meta c="1.63" s="15.55" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82338167" lon="18.22305">
+        <ele>263.8</ele>
+        <time>2024-09-16T12:34:27Z</time>
+        <extensions>
+          <geotracker:meta c="1.55" s="15.39" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82360333" lon="18.22816333">
+        <ele>259</ele>
+        <time>2024-09-16T12:34:54Z</time>
+        <extensions>
+          <geotracker:meta c="1.61" s="10.94" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82380667" lon="18.232155">
+        <ele>257.1</ele>
+        <time>2024-09-16T12:35:21Z</time>
+        <extensions>
+          <geotracker:meta c="1.28" s="8.39" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82391333" lon="18.23267833">
+        <ele>258</ele>
+        <time>2024-09-16T12:35:48Z</time>
+        <extensions>
+          <geotracker:meta c="1.25" s="0" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82419333" lon="18.23408167">
+        <ele>251.8</ele>
+        <time>2024-09-16T12:36:15Z</time>
+        <extensions>
+          <geotracker:meta c="1.31" s="5.03" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82458" lon="18.23628167">
+        <ele>255.9</ele>
+        <time>2024-09-16T12:36:42Z</time>
+        <extensions>
+          <geotracker:meta c="1.34" s="10.01" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82542833" lon="18.24111">
+        <ele>266.6</ele>
+        <time>2024-09-16T12:37:09Z</time>
+        <extensions>
+          <geotracker:meta c="1.34" s="10.84" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82588833" lon="18.244145">
+        <ele>273.4</ele>
+        <time>2024-09-16T12:38:03Z</time>
+        <extensions>
+          <geotracker:meta c="1.46" s="2.65" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82643833" lon="18.24747167">
+        <ele>273.5</ele>
+        <time>2024-09-16T12:38:30Z</time>
+        <extensions>
+          <geotracker:meta c="1.29" s="11.37" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82699" lon="18.250605">
+        <ele>283.7</ele>
+        <time>2024-09-16T12:38:57Z</time>
+        <extensions>
+          <geotracker:meta c="1.19" s="4.37" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82706833" lon="18.25115833">
+        <ele>285.9</ele>
+        <time>2024-09-16T12:39:24Z</time>
+        <extensions>
+          <geotracker:meta c="1.31" s="5.58" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82748833" lon="18.25379">
+        <ele>274.9</ele>
+        <time>2024-09-16T12:39:51Z</time>
+        <extensions>
+          <geotracker:meta c="1.31" s="4.57" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82755333" lon="18.25403333">
+        <ele>276.1</ele>
+        <time>2024-09-16T12:40:18Z</time>
+        <extensions>
+          <geotracker:meta c="1.31" s="3.15" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82792" lon="18.25650833">
+        <ele>265.7</ele>
+        <time>2024-09-16T12:40:45Z</time>
+        <extensions>
+          <geotracker:meta c="1.27" s="7.29" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82794" lon="18.25706667">
+        <ele>273.7</ele>
+        <time>2024-09-16T12:41:12Z</time>
+        <extensions>
+          <geotracker:meta c="1.21" s="0" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82824167" lon="18.25891667">
+        <ele>264.1</ele>
+        <time>2024-09-16T12:42:33Z</time>
+        <extensions>
+          <geotracker:meta c="1.36" s="5.19" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82831833" lon="18.25913667">
+        <ele>267.9</ele>
+        <time>2024-09-16T12:43:00Z</time>
+        <extensions>
+          <geotracker:meta c="1.39" s="1.47" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82880167" lon="18.26229333">
+        <ele>271.6</ele>
+        <time>2024-09-16T12:43:27Z</time>
+        <extensions>
+          <geotracker:meta c="1.38" s="8.63" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82915667" lon="18.26485333">
+        <ele>268</ele>
+        <time>2024-09-16T12:43:54Z</time>
+        <extensions>
+          <geotracker:meta c="1.3" s="0" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.82993" lon="18.26939333">
+        <ele>265.5</ele>
+        <time>2024-09-16T12:45:15Z</time>
+        <extensions>
+          <geotracker:meta c="1.34" s="12.44" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.83044" lon="18.27275667">
+        <ele>268.2</ele>
+        <time>2024-09-16T12:45:42Z</time>
+        <extensions>
+          <geotracker:meta c="1.29" s="4.75" />
+        </extensions>
+      </trkpt>
+      <trkpt lat="49.83052667" lon="18.27310167">
+        <ele>268.5</ele>
+        <time>2024-09-16T12:46:09Z</time>
+        <extensions>
+          <geotracker:meta c="1.44" s="5.31" />
+        </extensions>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>
